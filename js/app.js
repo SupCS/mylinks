@@ -112,3 +112,25 @@ particlesJS(
     retina_detect: true,
   }
 );
+
+
+// Here i want to make onhover repulse effect working when you are hovering through content  
+// Get the .content-wrapper element
+const contentWrapper = document.querySelector('.content-wrapper');
+
+// Add a mousemove event listener
+contentWrapper.addEventListener('mousemove', (event) => {
+  // Get the cursor coordinates relative to the window
+  const mouseX = event.clientX;
+  const mouseY = event.clientY;
+
+  // Call the particles.js mousemove event handler
+  if (window.pJSDom && window.pJSDom.length) {
+    window.pJSDom[0].pJS.interactivity.el.dispatchEvent(
+      new MouseEvent('mousemove', {
+        clientX: mouseX,
+        clientY: mouseY,
+      })
+    );
+  }
+});
