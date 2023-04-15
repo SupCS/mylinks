@@ -6,16 +6,13 @@ function getParticlesNumber() {
   let baseArea, baseParticlesNumber;
 
   // Определяем соотношение для каждого разрешения экрана
-  if (screenWidth < 768) {
-    // Мобильное разрешение
+  if (screenWidth < 768) { // Мобильное разрешение
     baseArea = 768 * 1366;
     baseParticlesNumber = 50;
-  } else if (screenWidth < 1024) {
-    // Планшетное разрешение
+  } else if (screenWidth < 1024) { // Планшетное разрешение
     baseArea = 1024 * 768;
     baseParticlesNumber = 100;
-  } else {
-    // Разрешение для настольных компьютеров
+  } else { // Разрешение для настольных компьютеров
     baseArea = 1920 * 1080;
     baseParticlesNumber = 150;
   }
@@ -33,6 +30,7 @@ function getParticlesNumber() {
     maxParticlesNumber
   );
 }
+
 
 particlesJS("particles-js", {
   particles: {
@@ -164,26 +162,6 @@ contentWrapper.addEventListener("mousemove", (event) => {
   // Get the cursor coordinates relative to the window
   const mouseX = event.clientX;
   const mouseY = event.clientY;
-
-  // Call the particles.js mousemove event handler
-  if (window.pJSDom && window.pJSDom.length) {
-    window.pJSDom[0].pJS.interactivity.el.dispatchEvent(
-      new MouseEvent("mousemove", {
-        clientX: mouseX,
-        clientY: mouseY,
-      })
-    );
-  }
-});
-
-// Initialize Hammer.js on the .content-wrapper element
-const hammer = new Hammer(contentWrapper);
-
-// Add a swipe event listener
-hammer.on("swipe", (event) => {
-  // Get the cursor coordinates relative to the window
-  const mouseX = event.center.x;
-  const mouseY = event.center.y;
 
   // Call the particles.js mousemove event handler
   if (window.pJSDom && window.pJSDom.length) {
