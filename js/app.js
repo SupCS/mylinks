@@ -179,19 +179,24 @@ contentWrapper.addEventListener("mousemove", (event) => {
 // Initialize Hammer.js on the .content-wrapper element
 const hammer = new Hammer(contentWrapper);
 
-// Add a swipe event listener
-hammer.on("swipe", (event) => {
-  // Get the cursor coordinates relative to the window
-  const mouseX = event.center.x;
-  const mouseY = event.center.y;
+// Добавляем обработчик touchstart
+hammer.on("touchstart", (event) => {
+  // Эмулируем начало движения мыши в текущей позиции пальца
+  contentWrapper.dispatchEvent(
+    new MouseEvent("mousemove", {
+      clientX: event.center.x,
+      clientY: event.center.y,
+    })
+  );
+});
 
-  // Call the particles.js mousemove event handler
-  if (window.pJSDom && window.pJSDom.length) {
-    window.pJSDom[0].pJS.interactivity.el.dispatchEvent(
-      new MouseEvent("mousemove", {
-        clientX: mouseX,
-        clientY: mouseY,
-      })
-    );
-  }
+// Добавляем обработчик touchmove
+hammer.on("touchmove", (event) => {
+  // Эмулируем движение мыши в новой позиции пальца
+  contentWrapper.dispatchEvent(
+    new MouseEvent("mousemove", {
+      clientX: event.center.x,
+      clientY: event.center.y,
+    })
+  );
 });
