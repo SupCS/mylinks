@@ -176,22 +176,27 @@ contentWrapper.addEventListener("mousemove", (event) => {
   }
 });
 
-// Add a touchmove event listener
-contentWrapper.addEventListener("touchmove", (event) => {
-  // Prevent default touch behavior
-  event.preventDefault();
+// Initialize Hammer.js on the .content-wrapper element
+const hammer = new Hammer(contentWrapper);
 
-  // Get the touch coordinates relative to the window
-  const touchX = event.touches[0].clientX;
-  const touchY = event.touches[0].clientY;
+// Добавляем обработчик touchstart
+hammer.on("touchstart", (event) => {
+  // Эмулируем начало движения мыши в текущей позиции пальца
+  contentWrapper.dispatchEvent(
+    new MouseEvent("mousemove", {
+      clientX: event.center.x,
+      clientY: event.center.y,
+    })
+  );
+});
 
-  // Call the particles.js mousemove event handler
-  if (window.pJSDom && window.pJSDom.length) {
-    window.pJSDom[0].pJS.interactivity.el.dispatchEvent(
-      new MouseEvent("mousemove", {
-        clientX: touchX,
-        clientY: touchY,
-      })
-    );
-  }
+// Добавляем обработчик touchmove
+hammer.on("touchmove", (event) => {
+  // Эмулируем движение мыши в новой позиции пальца
+  contentWrapper.dispatchEvent(
+    new MouseEvent("mousemove", {
+      clientX: event.center.x,
+      clientY: event.center.y,
+    })
+  );
 });
